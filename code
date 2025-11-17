@@ -277,19 +277,14 @@ print(f"  Expected by chance (5% level):     {expected_significant:.1f} (5.0%)")
 print(f"\n  INTERPRETATION:")
 print(f"  " + "-" * 80)
 
-interpretation_text = """  Across the sample of mutual funds, the CAPM results initially suggest widespread 
-  abnormal performance, with more significant alphas than expected by chance. However, 
-  once size and value factors are incorporated through the Fama-French three-factor 
-  model, several of these alphas weaken, indicating that much of the CAPM-based 
-  outperformance was actually driven by factor exposures rather than true skill. The 
-  introduction of the momentum factor in the Carhart four-factor model further reduces 
-  alpha significance for a subset of funds, especially those implicitly following 
-  momentum-heavy strategies. Despite this, a smaller group of funds continues to exhibit 
-  strong and persistent alphas alongside high information ratios, suggesting a pattern 
-  more consistent with genuine managerial ability. Overall, the multi-factor evidence 
-  implies that while many funds' returns are explained by systematic risk factors, a 
-  select few deliver performance that remains robust even under the most comprehensive 
-  models."""
+interpretation_text = """  At first, the CAPM results make it look like many funds are earning strong returns, 
+  with 12 funds showing significant alpha. But once we add the size and value factors in 
+  the Fama–French model, some of these alphas decrease, meaning the earlier results were 
+  actually due to factor exposure. Adding the momentum factor in the 4-factor model 
+  reduces alpha even more for some funds. Still, a few funds continue to show strong 
+  alphas and good information ratios, which suggests their returns are less luck 
+  dependent. Overall, most funds' performance is explained by common risk factors, but a 
+  small group stands out as potentially skilled fund managers."""
 
 print(interpretation_text)
 
@@ -306,10 +301,10 @@ value_funds['α(4F)'] = value_funds['α(4F)'].round(2)
 print(value_funds.to_string(index=False))
 
 print(f"\n  JUSTIFICATION:")
-print(f"  These funds exhibit the highest positive HML loadings, indicating they are")
-print(f"  systematically tilted toward value stocks with high book-to-market ratios. Because")
-print(f"  value exposure is a compensated risk factor in the Fama-French model, these elevated")
-print(f"  HML betas justify classifying the funds as value-oriented strategies.")
+print(f"  These funds have the highest HML betas, meaning that they are more invested in value")
+print(f"  stocks. Since value stocks typically earn higher long-term returns and value exposure")
+print(f"  is risk compensated in the Fama French model, these HML betas mean the funds are more")
+print(f"  value oriented.")
 
 print("\n  " + "-" * 80)
 print("\n  TOP 5 SMALL-CAP FUNDS (Highest SMB Beta)")
@@ -320,10 +315,9 @@ smallcap_funds['α(4F)'] = smallcap_funds['α(4F)'].round(2)
 print(smallcap_funds.to_string(index=False))
 
 print(f"\n  JUSTIFICATION:")
-print(f"  The funds with the highest SMB betas demonstrate strong, deliberate exposure to")
-print(f"  smaller firms, consistent with a small-cap investment style. Since the SMB factor")
-print(f"  rewards investors for bearing size-related risk, these high loadings confirm that")
-print(f"  the funds intentionally seek to capture the size premium.")
+print(f"  These funds have the highest SMB betas, meaning they are more invested in smaller")
+print(f"  companies with higher risk. Since SMB factor rewards investors with risk premiums")
+print(f"  these funds can be classified as small-cap strategies.")
 
 print("\n" + "=" * 100)
 print("✓ ANALYSIS COMPLETE!")
@@ -464,19 +458,14 @@ def create_pdf_report():
     fig.text(0.15, text_y, 'Interpretation:', fontsize=13, fontweight='bold')
     text_y -= 0.05
 
-    interpretation = ("Across the sample of mutual funds, the CAPM results initially suggest widespread\n"
-                      "abnormal performance, with more significant alphas than expected by chance. However,\n"
-                      "once size and value factors are incorporated through the Fama-French three-factor\n"
-                      "model, several of these alphas weaken, indicating that much of the CAPM-based\n"
-                      "outperformance was actually driven by factor exposures rather than true skill. The\n"
-                      "introduction of the momentum factor in the Carhart four-factor model further reduces\n"
-                      "alpha significance for a subset of funds, especially those implicitly following\n"
-                      "momentum-heavy strategies. Despite this, a smaller group of funds continues to exhibit\n"
-                      "strong and persistent alphas alongside high information ratios, suggesting a pattern\n"
-                      "more consistent with genuine managerial ability. Overall, the multi-factor evidence\n"
-                      "implies that while many funds' returns are explained by systematic risk factors, a\n"
-                      "select few deliver performance that remains robust even under the most comprehensive\n"
-                      "models.")
+    interpretation = ("At first, the CAPM results make it look like many funds are earning strong returns,\n"
+                      "with 12 funds showing significant alpha. But once we add the size and value factors in\n"
+                      "the Fama–French model, some of these alphas decrease, meaning the earlier results were\n"
+                      "actually due to factor exposure. Adding the momentum factor in the 4-factor model\n"
+                      "reduces alpha even more for some funds. Still, a few funds continue to show strong\n"
+                      "alphas and good information ratios, which suggests their returns are less luck\n"
+                      "dependent. Overall, most funds' performance is explained by common risk factors, but a\n"
+                      "small group stands out as potentially skilled fund managers.")
 
     fig.text(0.15, text_y, interpretation, fontsize=9, verticalalignment='top', wrap=True)
 
@@ -506,10 +495,10 @@ def create_pdf_report():
         value_table[(0, i)].set_facecolor('#70AD47')
         value_table[(0, i)].set_text_props(weight='bold', color='white')
 
-    fig.text(0.5, 0.45, 'Justification: These funds exhibit the highest positive HML loadings, indicating\n' +
-             'they are systematically tilted toward value stocks with high book-to-market ratios.\n' +
-             'Because value exposure is a compensated risk factor in the Fama-French model,\n' +
-             'these elevated HML betas justify classifying the funds as value-oriented strategies.',
+    fig.text(0.5, 0.45, 'Justification: These funds have the highest HML betas, meaning that they are more\n' +
+             'invested in value stocks. Since value stocks typically earn higher long-term returns\n' +
+             'and value exposure is risk compensated in the Fama French model, these HML betas\n' +
+             'mean the funds are more value oriented.',
              ha='center', fontsize=9, style='italic')
 
     # Small-cap funds table
@@ -527,10 +516,9 @@ def create_pdf_report():
         smallcap_table[(0, i)].set_facecolor('#FFC000')
         smallcap_table[(0, i)].set_text_props(weight='bold', color='black')
 
-    fig.text(0.5, 0.02, 'Justification: The funds with the highest SMB betas demonstrate strong, deliberate\n' +
-             'exposure to smaller firms, consistent with a small-cap investment style. Since the SMB\n' +
-             'factor rewards investors for bearing size-related risk, these high loadings confirm that\n' +
-             'the funds intentionally seek to capture the size premium.',
+    fig.text(0.5, 0.02, 'Justification: These funds have the highest SMB betas, meaning they are more\n' +
+             'invested in smaller companies with higher risk. Since SMB factor rewards investors\n' +
+             'with risk premiums these funds can be classified as small-cap strategies.',
              ha='center', fontsize=9, style='italic')
 
     pdf.savefig(fig, bbox_inches='tight')
